@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">Open VOC</string>
+    <string name="app_subtitle">離線單字測驗</string>
+    <string name="label_level">選擇等級</string>
+    <string name="label_mode">選擇模式</string>
+    <string name="label_count">測驗題數</string>
+    <string name="btn_start">開始測驗</string>
+    <string name="btn_back_home">回主畫面</string>
+    <string name="btn_view_words">查看測驗單字</string>
+    <string name="dialog_exit_title">離開測驗？</string>
+    <string name="dialog_exit_text">目前的測驗進度將會遺失，確定要返回主畫面嗎？</string>
+    <string name="confirm">確定</string>
+    <string name="cancel">取消</string>
+    <string name="quiz_finished">測驗完成！</string>
+    <string name="score_label">得分</string>
+    <string name="word_list_title">本次測驗單字</string>
+    <string name="question_progress">題目 %1$d / %2$d</string>
+</resources>
