@@ -1,6 +1,7 @@
 package com.android.openvoc
 
 import android.content.Context
+import androidx.annotation.StringRes
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.Serializable
@@ -19,8 +20,9 @@ data class Definition(
     val partOfSpeech: String
 )
 
-enum class QuizMode(val label: String) {
-    CH_TO_EN("中翻英"), EN_TO_CH("英翻中")
+enum class QuizMode(@StringRes val resId: Int) {
+    EN_TO_CH(R.string.mode_en_to_ch),
+    CH_TO_EN(R.string.mode_ch_to_en)
 }
 
 class VocabularyRepository(private val context: Context) {

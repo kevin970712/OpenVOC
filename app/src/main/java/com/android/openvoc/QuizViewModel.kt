@@ -35,6 +35,9 @@ class QuizViewModel(private val repository: VocabularyRepository) : ViewModel() 
         } else 0f
     }
     private var quizQueue: List<WordEntry> = emptyList()
+    private var lastLevel: Int = 1
+    private var lastMode: QuizMode = QuizMode.EN_TO_CH
+    private var lastCount: Int = 10
 
     data class Question(
         val correctWord: WordEntry,
@@ -43,6 +46,9 @@ class QuizViewModel(private val repository: VocabularyRepository) : ViewModel() 
     )
 
     fun startQuiz(level: Int, mode: QuizMode, count: Int) {
+        lastLevel = level
+        lastMode = mode
+        lastCount = count
         viewModelScope.launch {
             val loadedWords = withContext(Dispatchers.IO) {
                 repository.loadLevel(level)
@@ -58,6 +64,10 @@ class QuizViewModel(private val repository: VocabularyRepository) : ViewModel() 
             nextQuestion(mode)
             currentScreen = Screen.QUIZ
         }
+    }
+
+    fun retryQuiz() {
+        startQuiz(lastLevel, lastMode, lastCount)
     }
 
     fun nextQuestion(mode: QuizMode) {

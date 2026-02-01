@@ -94,6 +94,7 @@ fun AppNavigation(viewModel: QuizViewModel) {
                 viewModel.isFinished = false
                 viewModel.currentScreen = Screen.START
             },
+            onRetry = { viewModel.retryQuiz() },
             onViewWords = { viewModel.currentScreen = Screen.WORD_LIST }
         )
 
@@ -148,7 +149,7 @@ fun StartScreen(onStart: (Int, QuizMode, Int) -> Unit) {
 
         HorizontalPicker(
             label = stringResource(R.string.label_mode),
-            valueText = mode.label,
+            valueText = stringResource(mode.resId),
             onLeftClick = {
                 val idx = modes.indexOf(mode)
                 mode = modes[(idx - 1 + modes.size) % modes.size]
@@ -163,7 +164,7 @@ fun StartScreen(onStart: (Int, QuizMode, Int) -> Unit) {
 
         HorizontalPicker(
             label = stringResource(R.string.label_count),
-            valueText = "$count 題",
+            valueText = stringResource(R.string.count_format, count),
             onLeftClick = {
                 val idx = counts.indexOf(count)
                 count = counts[(idx - 1 + counts.size) % counts.size]
@@ -321,7 +322,7 @@ fun QuizScreen(viewModel: QuizViewModel, onExitQuiz: () -> Unit) {
 }
 
 @Composable
-fun ResultScreen(viewModel: QuizViewModel, onRestart: () -> Unit, onViewWords: () -> Unit) {
+fun ResultScreen(viewModel: QuizViewModel, onRestart: () -> Unit, onRetry: () -> Unit, onViewWords: () -> Unit) {
     BackHandler { onRestart() }
     Column(
         modifier = Modifier
@@ -343,6 +344,12 @@ fun ResultScreen(viewModel: QuizViewModel, onRestart: () -> Unit, onViewWords: (
         Text(stringResource(R.string.score_label), style = MaterialTheme.typography.labelLarge)
 
         Spacer(modifier = Modifier.height(48.dp))
+
+        Button(onClick = onRetry, modifier = Modifier.fillMaxWidth()) {
+            Text(stringResource(R.string.btn_retry))
+        }
+
+        Spacer(modifier = Modifier.height(12.dp))
 
         Button(onClick = onRestart, modifier = Modifier.fillMaxWidth()) {
             Text(stringResource(R.string.btn_back_home))
